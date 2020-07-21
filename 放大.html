@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      margin: 50px;
+    }
+
+    .small {
+      width: 229px;
+      height: 250px;
+      border: 1px solid black;
+      text-align: center;
+      position: relative;
+      float: left;
+      overflow: hidden;
+
+    }
+
+    .mask {
+      width: 100px;
+      height: 100px;
+      background-color: rgba(214, 111, 193, 0.3);
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+    }
+
+    .big {
+      width: 350px;
+      height: 350px;
+      border: 1px solid black;
+      overflow: hidden;
+      float: left;
+      display: none;
+    }
+    .bottom{
+      margin: 50px;
+    }
+    
+    .one{
+      height: 60px;
+      width: 60px;
+      border: 1px solid blue;
+      float: left;
+      overflow: hidden;
+      position: absolute;
+      margin-top: 260px;
+      margin-left: 0px;
+      
+    }
+    .two{
+      height: 60px;
+      width: 60px;
+      border: 1px solid blueviolet;
+      float: left;
+      overflow: hidden;
+      margin-top: 260px;
+      position: absolute;
+      margin-left: 80px;
+      
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="small">
+      <img
+        src="https://img.alicdn.com/imgextra/https://img.alicdn.com/imgextra/i3/2494290284/O1CN01UbkbmT1Dy6y5jomOP_!!2494290284.jpg_430x430q90.jpg"
+        width="229" height="249" alt=""/>
+        
+      <div class="mask"></div>
+    </div>
+    <div class="big">
+      <img
+        src="https://img.alicdn.com/imgextra/https://img.alicdn.com/imgextra/i3/2494290284/O1CN01UbkbmT1Dy6y5jomOP_!!2494290284.jpg_430x430q90.jpg",
+        width="549" height="600px" alt=""/>
+        <img src="https://img.alicdn.com/imgextra/i2/428722076/O1CN01gkBEjx1RCqnZr7spk_!!2-item_pic.png_430x430q90.jpg" width="549" height="600px" alt="">
+        
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="one">
+      <img src="https://img.alicdn.com/imgextra/https://img.alicdn.com/imgextra/i3/2494290284/O1CN01UbkbmT1Dy6y5jomOP_!!2494290284.jpg_430x430q90.jpg
+      " width="45" height="60" alt="">
+    </div>
+    <div class="two">
+      <img src="https://img.alicdn.com/imgextra/i2/428722076/O1CN01gkBEjx1RCqnZr7spk_!!2-item_pic.png_430x430q90.jpg" width="45" height="60" alt="">
+    </div>
+  </div>
+
+  <script>
+    var box = document.querySelector(".box");
+    var small = document.querySelector(".small");
+    var mask = document.querySelector(".mask");
+    var big = document.querySelector(".big");
+    var pic = big.children[0];
+    //鼠标放入
+    small.onmouseover = function () {
+      mask.style.display = "block";
+      big.style.display = "block";
+    }
+    //鼠标移出
+    small.onmouseout = function () {
+      mask.style.display = "none";
+      big.style.display = "none";
+    }
+
+    small.onmousemove = function (ev) {
+      var marginX = box.offsetLeft;
+      var marginY = box.offsetTop;
+
+      var currentX = ev.clientX;
+      var currentY = ev.clientY;
+
+      var x = currentX - marginX - mask.offsetWidth / 2;
+      var y = currentY - marginY - mask.offsetHeight / 2;
+
+      // var cx = ev.clientX;
+      // var cy = ev.clientY;
+
+      // var ox = box.offsetLeft;
+      // var oy = box.offsetTop;
+
+      // var downx = cx - ox;
+      // var downy = cy - oy;
+
+      if (x < 0) {
+        x = 0;
+      }
+      if (x > small.offsetWidth - mask.offsetWidth) {
+        x = small.offsetWidth - mask.offsetWidth
+      }
+      if (y < 0) {
+        y = 0;
+      }
+      if (y > small.offsetHeight - mask.offsetHeight) {
+        y = small.offsetHeight - mask.offsetHeight
+      }
+      mask.style.left = x + "px"
+      mask.style.top = y + "px"
+
+
+
+      // var movex=ev.clientX;
+      // var movey=ev.clientY;
+      // mask.style.left = movex-downx+"px";
+      // mask.style.top =movey-downy+"px";
+
+
+      var relativeX = mask.offsetLeft;
+      var relativeY = mask.offsetTop;
+      var proporationX = pic.offsetWidth / small.offsetWidth;
+      var proporationY = pic.offsetHeight / small.offsetWidth;
+      pic.style.marginLeft = -relativeX * proporationX + "px";
+      pic.style.marginTop = -relativeY * proporationY + "px";
+
+    }
+  </script>
+</body>
+
+</html>
